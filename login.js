@@ -1,9 +1,25 @@
+// la modification de login  en logout doit-il passer par un export de la fonction dans works.js?
+
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const submit = document.getElementById("submit");
 const loginEmailError = document.querySelector(".loginEmailError"); 
 const loginPasswordError = document.querySelector(".loginPasswordError"); 
 const popup = document.querySelector(".popup");
+
+/*PSEUDO-CODE DU LOGIN
+-cette page affiche les identifiants de l'utilisateur pour se logger à l'API
+-définir les zones email / mdp / bouton submit
+-définir écoute évènement sur le bouton submit avec récupération des valeurs email et password.
+-ensuite vérifier la syntaxe de l'email + si mot de passe 
+-la fonction VerifID vérifie la syntaxe de l'email selon critères et si un pwd a bien été entré.
+  Si pas correct, dans la div loginEmailError et la div loginPasswordError situées en dessous des cases et faire apparaitre une balise <p> avec message d'alerte + 
+  une class .empty rajouté à cases Email&pwd avec bordures rouges.
+-la fonction clearAlerts remove les alertes <p> et la class ".empty" à chaque clic submit
+-la fonction login permet ensuite de se connecter à l'API et vérifier si les identifiants correspondent aux accès API-login-Post. Si 
+-la fonction showPopupAlert 
+-la fonction updateLoginButton
+*/
 
 submit.addEventListener("click", function (event) {
   event.preventDefault(); // blocage comportement par défaut
@@ -12,27 +28,31 @@ submit.addEventListener("click", function (event) {
     email: emailInput.value,
     password: passwordInput.value
   };
-  VerifID(user);
   login(user);
+  getToken(username, password);
 });
 
+
 function VerifID(user) {
+  let result = true
   if (!user.email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/g)) {
     const p = document.createElement("p");
-    loginEmailError.innerHTML = "";
     p.innerHTML = "Veuillez entrer une adresse mail valide";
     loginEmailError.appendChild(p);
     emailInput.classList.add("empty");
-    return;
-  } else if (!user.password) {
+    result = false
+    //return;
+  } if (!user.password) {
     const p = document.createElement("p");
-    loginPasswordError.innerHTML = "";
     p.innerHTML = "Veuillez entrer un mot de passe";
     loginPasswordError.appendChild(p);
     passwordInput.classList.add("empty");
-    return;
+    result = false
+    //return;
   }
+  return result;
 }
+
 
 //suppression des alertes à chaque submit
 function clearAlerts() {
@@ -44,13 +64,13 @@ function clearAlerts() {
   passwordInput.classList.remove("empty");
 }
 
+
 //CONNECTION API
 async function login(user) {
   try {
-    if (!user.password) {
-      return; // Si mdp pas complété, exit fonction
-    }
-
+    const recuperationValeurID = VerifID(user)
+    if  (!recuperationValeurID) return;
+    
     const response = await fetch("http://localhost:5678/api/users/login", {
       method: "POST",
       headers: {
@@ -69,35 +89,39 @@ async function login(user) {
     if (result.token) {
       localStorage.setItem("token", result.token);
       window.location.href = "../../index.html";
+      //updateLoginButton(); 
     }
   } catch (error) {
     console.error("Error:", error);
   }
 }
 
-// Affichage du popup
+//popup
 function showPopupAlert(message) {
   const popupContent = document.createElement("div");
   popupContent.classList.add("popup-content");
-  popupContent.innerHTML = `
-    <p>${message}</p>
-  `;
+  popupContent.innerHTML = `<p>${message}</p>`;
 
   popup.appendChild(popupContent);
   popup.style.display = "block";
 
-  // Fermeture du popup en cliquant à l'extérieur
-  document.addEventListener("click", closePopup);
 
-  function closePopup(event) {
-    if (!popup.contains(event.target)) {
-      popupContent.remove();
-      popup.style.display = "none";
-      document.removeEventListener("click", closePopup);
-    }
+document.addEventListener("click", closePopup);
+
+function closePopup(event) {
+  if (!popup.contains(event.target)) {
+    popupContent.remove();
+    popup.style.display = "none";
+    document.removeEventListener("click", closePopup);
   }
 }
+}
 
+//login - logout - !ne fonctionne pas encore!
+function updateLoginButton() {
+  const loginButton = document.getElementById("loginLink");
+  loginButton.textContent = "Logout";
+}
 
 //email: sophie.bluel@test.tld
 //password: S0phie  
