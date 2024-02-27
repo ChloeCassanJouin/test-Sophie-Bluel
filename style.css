@@ -57,11 +57,9 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0 150px 0;
 }
-section {
-	margin: 50px 0
-}
+
 
 h1{
 	display: flex;
@@ -83,7 +81,8 @@ h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1D6154;
+	display: flex;
 }
 nav ul {
 	display: flex;
@@ -128,12 +127,13 @@ li:hover {
 
 #introduction p {
 	margin-bottom: 0.5em;
-	padding-right: 8em;
+	padding-right: 11em;
 }
 
 
 #portfolio h2 {
 	text-align: center;
+	justify-content: center;
 	margin-bottom: 1em;
 	margin-top: 3em;
 }
@@ -196,6 +196,7 @@ flex-direction: column;
 #contact {
 	width: 50%;
 margin: auto;
+padding-top: 90px;
 }
 #contact > * {
 	text-align: center;
@@ -203,6 +204,7 @@ margin: auto;
 }
 #contact h2{
 	margin-bottom: 20px;
+	justify-content: center;
 }
 #contact form {
 	text-align: left;
@@ -247,12 +249,19 @@ footer nav ul {
 
 
 /*partie page login.html*/
+.loginSection h2{
+ justify-content: center;
+} 
+
 #LoginPage {
 	width: 50%;
 	margin: auto;
-	padding-top: 8em;
-	padding-bottom: 15em;
 }
+
+.loginSection {
+	margin: 50px 0 420px 0;
+}
+
 #LoginPage > * {
 	text-align: center;
 
@@ -264,6 +273,7 @@ footer nav ul {
 #LoginPage h2{
 	margin-bottom: 20px;
 }
+
 #LoginPage form {
 	text-align: left;
 	margin-top:30px;
@@ -360,7 +370,8 @@ flex-direction: column;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background-color: white;
+	background-color: #1D6154;
+	color: white;
 	border: 1px solid black;
 	padding: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
