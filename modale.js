@@ -34,6 +34,7 @@ const BtnAddProject = document.querySelector('.addProjects');
 const modal2 = document.querySelector('.modalAdditionContainer')
 let projetElement; // utiliser dans fonction fetch, donc inutilisable sinon
 
+fetchAndDisplayCategories()
 
 const openModal = function (event) {
   event.preventDefault()
@@ -92,6 +93,32 @@ function Make2ndModalAppear() {
 
 Make2ndModalAppear();
 
+
+//récupération des catégories
+function fetchAndDisplayCategories() {
+  fetch('http://localhost:5678/api/categories')
+      .then(response => response.json())
+      .then(data => {
+          const selectElement = document.getElementById('modalAddImageCategory');
+          selectElement.innerHTML = ''; // Effacer les options existantes
+          data.forEach(category => {
+              const optionElement = document.createElement('option');
+              optionElement.value = category.id;
+              optionElement.textContent = category.name;
+              selectElement.appendChild(optionElement);
+              console.log(selectElement)
+          });
+      })
+      .catch(error => {
+          console.error('Erreur lors de la récupération des catégories :', error);
+      });
+
+}
+
+// Appelez la fonction pour récupérer et afficher les catégories lorsque la page est chargée
+fetchAndDisplayCategories();
+
+
 //soumettre formulaire ajout de projets
 export function ajoutListenerAjoutProjet() {
   const formulaireAjoutProjet = document.querySelector(".formulaireAjoutProjet");
@@ -105,7 +132,7 @@ export function ajoutListenerAjoutProjet() {
     }
     const projetAjoute = {
       titre: event.target.querySelector("input[name='title']").value, // Utiliser input[name='titre']
-      categorie: event.target.querySelector("select[name='categoryID']").value, // Utiliser [name='categorie']
+      categorie: event.target.querySelector("select[name='category.name']").value, // Utiliser [name='categorie']
       photo: photo,
     };
     const chargeUtile = JSON.stringify(projetAjoute);

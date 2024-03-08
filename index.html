@@ -58,16 +58,12 @@
 				<p class="titleModal">Galerie Photos</p>
 				<div class="modalGallery"></div>
 				<form class="formulaireAjoutProjet">
-					<label for="photo">Photo</label>
+					<label for="photo">jpg, png : 4mo max</label>
     				<input type="file" id="imageUrl" name="imageUrl" accept="image/*">
 					<label>Titre</label>
 					<input type="text" name="title">
-					<label for="subject">Catégorie</label>
-					<select id="subject" name="categoryID" required>
-						<option value="Objets">Objets</option>
-						<option value="Appartements">Appartements</option>
-						<option value="Hotels & restaurants">Hotels & restaurants</option>
-					</select>
+					<label for="categorySelect">Catégorie</label>
+					<select name="category.name" id="modalAddImageCategory"></select>
 					<button>Valider</button>
 				</form>
 				<button class="addProjects">Ajouter une photo</button>
