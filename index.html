@@ -6,11 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/CSS/style.css">
-	<script type="module" src="./scripts/works.js"></script>
+	<script type="module" src="./scripts/index.js"></script>
 	<script type="module" src="./scripts/modale.js"></script>
 </head>
 <body>
@@ -20,9 +20,8 @@
 		<ul>
 			<li><a href ="#">projets</a></li>
 			<li><a href ="#">contact</a></li>
-			<li><a href ="../FrontEnd/assets/HTML/login.html" id="loginLink">login</a></li>
-			<!--<a href="../index.html"><i class="fa-solid fa-arrow-left fa-lg"></i></a>-->
-			<li><img src="../FrontEnd/assets/icons/instagram.png" alt="Instagram"><a href ="#"></a></li>
+			<li><a href ="#" id="logLink">Login</a></li> <!--faire affichage dyn-->
+			<li><img src="../FrontEnd/assets/icons/instagram.png" alt="Instagram" class="instagram"><a href ="#"></a></li>
 		</ul>
 	</nav>
 </header>
@@ -40,33 +39,40 @@
 	</section>
 
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="titleMyProjects" >
+			<h2>Mes Projets</h2>
+			<div id="OpenModalBtn"><i class="fa-solid fa-pen-nib"></i>
+				<p >modifier</p>
+			</div>								
+		</div>
 		<div class="buttonAll">
 			<button class="btn-filter_all buttonHighlight">Tous</button>
-			<button id="OpenModalBtn">modifier</button> 
 			<div class="buttonsFilter"></div>
 		</div>
+		
 		<div class="mainGallery"></div>
 		
 		<dialog class="modal">
-			<div class="modal-wrapper">
-				<p id="titleModal">Galerie Photos</p>
-				<span id="closeModal">x</span>
+			<span id="closeModal">x</span>
+			<div class="modalProjectsContainer">
+				<p class="titleModal">Galerie Photos</p>
 				<div class="modalGallery"></div>
+				<form class="formulaireAjoutProjet">
+					<label for="photo">Photo</label>
+    				<input type="file" id="imageUrl" name="imageUrl" accept="image/*">
+					<label>Titre</label>
+					<input type="text" name="title">
+					<label for="subject">Catégorie</label>
+					<select id="subject" name="categoryID" required>
+						<option value="Objets">Objets</option>
+						<option value="Appartements">Appartements</option>
+						<option value="Hotels & restaurants">Hotels & restaurants</option>
+					</select>
+					<button>Valider</button>
+				</form>
 				<button class="addProjects">Ajouter une photo</button>
 			</div>
 		</dialog>
-		
-		<dialog class="uploadWorks">
-			<div class="uploadWorks-wrapper">
-				<p id="titleAddProjects">Ajout Photos</p>
-				<span id="closeModal">x</span>
-				<div></div>
-				<button class="ValidateAddProjects">Valider</button>
-			</div>
-		</dialog>
-
-
 	</section>
 
 	<section id="contact">

@@ -4,7 +4,7 @@ const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const submit = document.getElementById("submit");
 const loginEmailError = document.querySelector(".loginEmailError"); 
-const loginPasswordError = document.querySelector(".loginPasswordError"); 
+const loginPasswordError = document.querySelector(".loginPasswordError")
 const popup = document.querySelector(".popup");
 
 /*PSEUDO-CODE DU LOGIN
@@ -21,6 +21,8 @@ const popup = document.querySelector(".popup");
 -la fonction updateLoginButton
 */
 
+localStorage.removeItem("token");
+
 submit.addEventListener("click", function (event) {
   event.preventDefault(); // blocage comportement par défaut
   clearAlerts();
@@ -29,7 +31,6 @@ submit.addEventListener("click", function (event) {
     password: passwordInput.value
   };
   login(user);
-  getToken(username, password);
 });
 
 
@@ -71,13 +72,16 @@ async function login(user) {
     const recuperationValeurID = VerifID(user)
     if  (!recuperationValeurID) return;
     
-    const response = await fetch("http://localhost:5678/api/users/login", {
+
+    //La sauvegarde de nouvelles données dans l’API HTTP nécessite de renseigner trois nouvelles informations en plus du chemin de la ressource : le verbe HTTP, la charge utile et les en-têtes.
+    const response = await fetch("http://localhost:5678/api/users/login", { 
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
     });
+    console.log(user)
 
     if (response.status === 401 || response.status === 404) {
       showPopupAlert("Vos identifiants ne sont pas valides.");
@@ -85,10 +89,12 @@ async function login(user) {
     }
 
     const result = await response.json();
-
     if (result.token) {
       localStorage.setItem("token", result.token);
       window.location.href = "../../index.html";
+      console.log(result)
+      const token = result.token
+      console.log(token)
       //updateLoginButton(); 
     }
   } catch (error) {

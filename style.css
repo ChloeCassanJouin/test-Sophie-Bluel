@@ -16,7 +16,6 @@ article, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
@@ -130,12 +129,14 @@ li:hover {
 	padding-right: 11em;
 }
 
+.instagram {
+	height: 15px;
+}
 
-#portfolio h2 {
-	text-align: center;
+.titleMyProjects {
+	display: flex;
 	justify-content: center;
-	margin-bottom: 1em;
-	margin-top: 3em;
+	text-align: center;
 }
 
 /* BUTTONS */
@@ -299,9 +300,39 @@ footer nav ul {
 
 
 /*modal*/
+
+#OpenModalBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#OpenModalBtn:hover {
+	cursor: pointer;
+}
+
+.iconModal {
+	width: 50px;
+	height: 50px;
+}
+
+.fa-car {
+	color: black;
+	width: 50px;
+	height: 50px;
+}
+
+.titleModal {
+	display: flex;
+	justify-content: center;
+	font-family: 'Work Sans' ;
+	font-size: 24px;
+	color: #1D6154;
+	margin-block-start: 0em;
+}
+
 .modal {
 	position: fixed; /*entiereté écran*/
-	display: none;
 	align-items: center;
 	justify-content: center;
 	top: 0;
@@ -320,12 +351,12 @@ footer nav ul {
 }
 
 
-.modal-wrapper {
+.modalProjectsContainer {
 	overflow: auto;
-	width: 56%;
+	width: 30%;
 	max-width: calc(100vw - 20px);
 	max-height: calc(100vh - 20px);
-	padding: 3em;
+	padding: 2em;
 	background-color: #FFF;
 }
 
@@ -338,17 +369,20 @@ footer nav ul {
 	grid-row-gap: 20px;
 }
 
-.modal-wrapper article {
+.modalAdditionContainer {
+	background-color: white;
+}
+.modalProjectsContainer article {
 display: flex;
 flex-direction: column;
 }
 
-.modal-wrapper img {
+.modalProjectsContainer img {
 	width: 100%;
 
 }
 
-.modal-wrapper h3 {
+.mmodalProjectsContainer h3 {
 	padding-top: 3%;
 }
 
