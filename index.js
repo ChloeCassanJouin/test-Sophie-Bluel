@@ -1,12 +1,3 @@
-
-import { ajoutListenerAjoutProjet } from "./modale.js";
-//quand clique logout, on est renvoyé sur la page d'accueil avec login
-
-/*
-question: pourquoi changement de couleur autour des projets selon organisation code?
--type=module (index.html)
-*/
-
 const response = await fetch('http://localhost:5678/api/works');
 const architectProjects = await response.json();
 const responseCategories = await fetch('http://localhost:5678/api/categories');
@@ -27,17 +18,16 @@ console.log(isLogged); // Affiche true si un token existe, sinon false
 
 //affichage login ou logout
 function loggedState() {
-    if(isLogged === true) { // affichage conditionnel / token
+    if(isLogged) { // affichage conditionnel / token
     logLink.textContent = "logout";
     }
-    if(isLogged === false)
-        return
+    return
 }
 loggedState()
 
 function logLinkRoad() {
     logLink.addEventListener('click', function () {
-        if (isLogged === true) {
+        if (isLogged) {
             console.log("je suis là") 
             localStorage.removeItem("token"); // Supprimer le token du localStorage
             // Rediriger vers la page d'accueil par exemple
@@ -99,9 +89,9 @@ genereCategories(architectButtons);
 
 
 //affichage rajout projet
-const reponse = await fetch('http://localhost:5678/api/works');
+/*const reponse = await fetch('http://localhost:5678/api/works');
 const projetAjouté = await reponse.json();
-ajoutListenerAjoutProjet()
+ajoutListenerAjoutProjet()*/
 
 /* 
 1-récupération du token

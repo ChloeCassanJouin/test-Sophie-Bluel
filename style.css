@@ -326,8 +326,7 @@ footer nav ul {
 	display: flex;
 	justify-content: center;
 	font-family: 'Work Sans' ;
-	font-size: 24px;
-	color: #1D6154;
+	font-size: 16px;
 	margin-block-start: 0em;
 }
 
@@ -365,7 +364,7 @@ footer nav ul {
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	grid-column-gap: 20px;
+	grid-column-gap: 8px;
 	grid-row-gap: 20px;
 }
 
@@ -386,17 +385,22 @@ flex-direction: column;
 	padding-top: 3%;
 }
 
-.trash-icon {
-    position: relative;
+.js-delete-work {
+	cursor: pointer;
 }
-
-.trash-icon .fa-trash-alt {
+.fa-trash-alt {
     position: absolute;
     font-size: 15px;
     cursor: pointer;
     color: #fff;
 	background-color: black; /* Couleur de l'icône de poubelle */
 	padding: 2px;
+}
+
+.test {
+	cursor: pointer;
+    color: #fff;
+	background-color: black; 
 }
 
 .popup {
@@ -419,3 +423,4 @@ flex-direction: column;
   .popup p {
 	margin: 0;
   }
+

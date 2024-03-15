@@ -55,20 +55,21 @@
 		<dialog class="modal">
 			<span id="closeModal">x</span>
 			<div class="modalProjectsContainer">
-				<p class="titleModal">Galerie Photos</p>
+				<p class="titleModal">Galerie photo</p>
 				<div class="modalGallery"></div>
-				<form class="formulaireAjoutProjet">
+				<form id="formulaireAjoutProjet">
 					<label for="photo">jpg, png : 4mo max</label>
     				<input type="file" id="imageUrl" name="imageUrl" accept="image/*">
 					<label>Titre</label>
 					<input type="text" name="title">
 					<label for="categorySelect">Catégorie</label>
 					<select name="category.name" id="modalAddImageCategory"></select>
-					<button>Valider</button>
+					<button id="boutonValidation">Valider</button>
 				</form>
 				<button class="addProjects">Ajouter une photo</button>
 			</div>
 		</dialog>
+		<div class="popup"></div>
 	</section>
 
 	<section id="contact">

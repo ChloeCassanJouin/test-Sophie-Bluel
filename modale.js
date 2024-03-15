@@ -1,28 +1,3 @@
-/*
--Attention border radius modale
-
-[ressource tutoriel modale Grafikart]
-[ressource utilisation des objets FormData]
-[ressource Créez un nouvel élément dans une page web]
-
-La modale n'est accessible que si Sophie Bluel est login.
-Alors le bouton "modifier" apparait (avec icône) (a la place des boutons de filtre)
-la modale apparait au clic du bouton 
-modale1 contient: croix de fermeture / titre / photos projets / poubelle de suppression / barre horizontale / bouton "ajouter une photo"
-lors du clic sur bouton "ajouter une photo" le contenu de la modale1 change
-POSSIBILITE DE SUPPRESSION DE PROJETS (suppression visible dans la modale ET sur page ppale ET définitive de l'API - action à mettre en place APRES l'action d'ajout de projets) - requete fetch
-Important: on ne devra pas avoir besoin de recharger la page pour voir que le projet a été supprimé. (comment retirer des éléments du DOM apres conf suppression de l'entrée en BDD)
-modale2 contient: fleche de retour / croix de fermeture / titre / cadre gris avec image-bouton "+ajouter photo"+phrase / titre / zone de texte / titre / menu deroulant / barre horizontale : bouton "valider" NON ACTIF
-la modale2 a pour condition de ne pouvoir activer le bouton "valider" que si le formulaire complet (photo + titre + catégorie)
-POSSIBILITE D'AJOUT DE PROJETS visible dans la modale ET sur page ppale (au rechargement de la page?) ET dans l'API (requete fetch)  - actualisation du DOM sans recharge page
-verif réponse API pour ajout projet
-Alors le bouton "valider" est actif
-Un message d'erreur doit apparaitre si le formulaire n'est pas correctement rempli - vérifier le comportement du formulaires si données erronées.
-Vérifier la MAJ de l'interface et sa gestion quand ajout ou suppression éléments du DOM
-La modale doit pouvoir se fermer au clic de la croix ou à l'extérieur de la modale
-Il est important s'assurer que quel que soit le nombre de fois que la modale est ouverte ou fermée, une seule modale reste présente dans le code source.
-*/
-
 //déclaration variables
 const openModalBtn = document.getElementById('OpenModalBtn');
 const modal = document.querySelector('.modal');
@@ -31,16 +6,17 @@ const closeModalBtn = document.getElementById('closeModal');
 const AddProjects = document.querySelector('.addProjects');
 const titleModal = document.querySelector('.titleModal');
 const BtnAddProject = document.querySelector('.addProjects');
-const modal2 = document.querySelector('.modalAdditionContainer')
+const formulaireAjoutProjetB = document.getElementById("boutonValidation");
 let projetElement; // utiliser dans fonction fetch, donc inutilisable sinon
 
-fetchAndDisplayCategories()
+////////////////////////////////////////////////////////////////////////////////      TOKEN///////////////
+const token = localStorage.getItem("token");
+const isLogged = token ? true : false;// Vérifier si le token existe
+console.log(isLogged); // Affiche true si un token existe, sinon false
 
-const openModal = function (event) {
-  event.preventDefault()
-}
 
-//ouverture modale
+///////////////////////////////////////////////////////////////////////////////      OUVERTURE-FERMETURE MODALE/
+//ouverture modale1
 openModalBtn.addEventListener("click", function() {
   modal.style.display = "flex";
 });
@@ -56,45 +32,51 @@ window.addEventListener("click", function(event) {
   }
 });
 
-// ouverture gallerie Modale 
+
+///////////////////////////////////////////////////////////////////////////////      AFFICHAGE GALLERIE/
+//récupération Gallerie modale
 fetch('http://localhost:5678/api/works')
-.then(response => response.json())
-.then(data => {
-  modalGallery.innerHTML = "";
-  data.forEach(project => {
-    projetElement = document.createElement("article");
-    const imageElement = document.createElement("img");
-    imageElement.src = project.imageUrl;
+  .then(response => response.json())
+  .then(data => {
+    modalGallery.innerHTML = "";
+    data.forEach(project => {
+      projetElement = document.createElement("article");
 
-    projetElement.appendChild(imageElement);
-    modalGallery.appendChild(projetElement);
-    generateTrashIcon(); // permet l'apparition d'un icone a chaque nouveau projet créé
+      const imageElement = document.createElement("img");
+      imageElement.src = project.imageUrl;
+      imageElement.alt = project.title;
+
+      const idProjet = document.createElement("p");
+      idProjet.classList.add("js-delete-work");
+      idProjet.innerText = project.id;
+
+      // Création de l'élément <i>
+      const trashIcon = document.createElement("i");
+      trashIcon.classList.add("fas", "fa-trash-alt"); // Ajout des classes pour l'icône de corbeille
+
+      // Ajout de l'élément <i> comme enfant de l'élément <p>
+      idProjet.appendChild(trashIcon);
+
+      projetElement.appendChild(imageElement);
+      projetElement.appendChild(idProjet);
+      modalGallery.appendChild(projetElement);
+    });
+    deleteWork(); // Appeler la fonction deleteWork après avoir généré tous les éléments
   });
-});
-
-//affichage des trashbIcons
-function generateTrashIcon() {
-  const trashIcon = document.createElement("span");
-  trashIcon.classList.add("trash-icon");
-  trashIcon.innerHTML = '<i class="fas fa-trash-alt"></i>';
-  projetElement.appendChild(trashIcon);
-}
 
 
+///////////////////////////////////////////////////////////////////////////////      AFFICHAGE FORMULAIRE/
 //affichage modale 2
 function Make2ndModalAppear() {
   AddProjects.addEventListener("click", function() {
-    console.log("j'ai bien cliqué");
     titleModal.textContent = "Ajout Photos";
     modalGallery.remove();
     BtnAddProject.remove();
   });
 }
-
 Make2ndModalAppear();
 
-
-//récupération des catégories
+//récupération des catégories dans formulaire
 function fetchAndDisplayCategories() {
   fetch('http://localhost:5678/api/categories')
       .then(response => response.json())
@@ -106,64 +88,71 @@ function fetchAndDisplayCategories() {
               optionElement.value = category.id;
               optionElement.textContent = category.name;
               selectElement.appendChild(optionElement);
-              console.log(selectElement)
           });
       })
       .catch(error => {
           console.error('Erreur lors de la récupération des catégories :', error);
       });
-
 }
-
-// Appelez la fonction pour récupérer et afficher les catégories lorsque la page est chargée
 fetchAndDisplayCategories();
 
 
-//soumettre formulaire ajout de projets
-export function ajoutListenerAjoutProjet() {
-  const formulaireAjoutProjet = document.querySelector(".formulaireAjoutProjet");
-  formulaireAjoutProjet.addEventListener("submit", function (event) {
-    event.preventDefault();
-    const photo = event.target.querySelector("#imageUrl").files[0];
-    if (!photo) {
-      // Gérer le cas où aucune photo n'est sélectionnée
-      console.error("Veuillez sélectionner une photo.");
-      return;
-    }
-    const projetAjoute = {
-      titre: event.target.querySelector("input[name='title']").value, // Utiliser input[name='titre']
-      categorie: event.target.querySelector("select[name='category.name']").value, // Utiliser [name='categorie']
-      photo: photo,
-    };
-    const chargeUtile = JSON.stringify(projetAjoute);
-    console.log(projetAjoute);
-    fetch("http://localhost:5678/api/works", { 
-      method: "POST", // Protocole HTTP
-      headers: { 
-        "Content-Type": "application/json", 
-      }, 
-      body: chargeUtile 
-    });
+///////////////////////////////////////////////////////////////////////////////      AJOUT PROJET/
+// Ajouter un projet
+async function ajoutListenerAjoutProjet() {
+  formulaireAjoutProjetB.addEventListener("click", async function(event) {
+      event.preventDefault();
+
+      const token = localStorage.getItem("token");
+      const photo = document.getElementById("imageUrl").files[0];
+      const title = document.querySelector("input[name='title']").value;
+      const category = document.querySelector("select[name='category.name']").value;
+      console.log(token, photo, title, category)
+      try {
+          const formData = new FormData();
+          formData.append('image', photo);
+          formData.append('title', title);
+          formData.append('category', category);
+
+          const response = await fetch("http://localhost:5678/api/works", {
+              method: "POST",
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+          });
+      } catch (error) {
+          console.log("Erreur :", error);
+      }
   });
 }
-/*//rajout de projets
-const AddProjects = await fetch('http://localhost:5678/api/works', { 
-method: "POST",//protocole HTTP
-headers: { 
-  "Content-Type": "application/json", 
-}, // format charge utile
-body: JSON.stringify(??), //charge utile
-});
-*/
+ajoutListenerAjoutProjet();
 
 
+///////////////////////////////////////////////////////////////////////////////      SUPRESSION PROJET/
+// click poubelle
+function deleteWork() {
+  let btnDeleteList = document.querySelectorAll(".js-delete-work");
+  console.log(btnDeleteList)
+  btnDeleteList.forEach(function(item) {
+      item.addEventListener("click", function(event) {
+        event.preventDefault();
+        
+          const projectId = this.innerText; // Récupérer l'ID du projet à partir du texte de l'élément clic
+          deleteProjets(projectId); // Appeler la fonction deleteProjets avec l'ID du projet
+      });
+  });
+}
 
-//suppression projet
-/*trashIcon.addEventListener("click", function() {
-  projetElement.remove();
-  const imageIndex = Array.from(mainGallery.children).indexOf(projetElement);
-    if (imageIndex !== -1) {
-      mainGallery.removeChild(mainGallery.children[imageIndex]);
-    }
-});
-*/
+//suppression de projets
+async function deleteProjets(id) {
+  // Utiliser l'ID du projet dans l'URL de l'API pour supprimer le projet
+  await fetch(`http://localhost:5678/api/works/${id}`, {
+      method: "DELETE",
+      headers: { 
+        Authorization: `Bearer ${token}`},
+  })
+  .catch (error => {
+      console.log(error);
+  });
+}
