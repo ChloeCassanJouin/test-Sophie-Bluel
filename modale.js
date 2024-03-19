@@ -3,10 +3,11 @@ const openModalBtn = document.getElementById('OpenModalBtn');
 const modal = document.querySelector('.modal');
 const modalGallery = document.querySelector(".modalGallery");
 const closeModalBtn = document.getElementById('closeModal');
-const AddProjects = document.querySelector('.addProjects');
+const arrowModal = document.querySelector(".fa-arrow-left");
 const titleModal = document.querySelector('.titleModal');
-const BtnAddProject = document.querySelector('.addProjects');
-const formulaireAjoutProjetB = document.getElementById("boutonValidation");
+const BtnAddProject = document.querySelector('.addProjectsBtn');
+const formulaireAjoutProjet= document.getElementById("formulaireAjoutProjet");
+const formulaireBtn = document.getElementById("boutonValidation");//bouton validation formulaire ajout
 let projetElement; // utiliser dans fonction fetch, donc inutilisable sinon
 
 ////////////////////////////////////////////////////////////////////////////////      TOKEN///////////////
@@ -50,11 +51,9 @@ fetch('http://localhost:5678/api/works')
       idProjet.classList.add("js-delete-work");
       idProjet.innerText = project.id;
 
-      // Création de l'élément <i>
       const trashIcon = document.createElement("i");
-      trashIcon.classList.add("fas", "fa-trash-alt"); // Ajout des classes pour l'icône de corbeille
+      trashIcon.classList.add("fas", "fa-trash-alt"); 
 
-      // Ajout de l'élément <i> comme enfant de l'élément <p>
       idProjet.appendChild(trashIcon);
 
       projetElement.appendChild(imageElement);
@@ -68,14 +67,19 @@ fetch('http://localhost:5678/api/works')
 ///////////////////////////////////////////////////////////////////////////////      AFFICHAGE FORMULAIRE/
 //affichage modale 2
 function Make2ndModalAppear() {
-  AddProjects.addEventListener("click", function() {
+  BtnAddProject.addEventListener("click", function() {
     titleModal.textContent = "Ajout Photos";
     modalGallery.remove();
     BtnAddProject.remove();
+    formulaireAjoutProjet.style.display= "flex";
+    arrowModal.style.display= "flex";
   });
 }
 Make2ndModalAppear();
 
+
+
+///////////////////////////////////////////////////////////////////////////////      AJOUT PROJET/
 //récupération des catégories dans formulaire
 function fetchAndDisplayCategories() {
   fetch('http://localhost:5678/api/categories')
@@ -96,11 +100,9 @@ function fetchAndDisplayCategories() {
 }
 fetchAndDisplayCategories();
 
-
-///////////////////////////////////////////////////////////////////////////////      AJOUT PROJET/
-// Ajouter un projet
+// Ajouter un projet - validation formulaire
 async function ajoutListenerAjoutProjet() {
-  formulaireAjoutProjetB.addEventListener("click", async function(event) {
+  formulaireBtn.addEventListener("click", async function(event) {
       event.preventDefault();
 
       const token = localStorage.getItem("token");
@@ -129,6 +131,7 @@ async function ajoutListenerAjoutProjet() {
 ajoutListenerAjoutProjet();
 
 
+
 ///////////////////////////////////////////////////////////////////////////////      SUPRESSION PROJET/
 // click poubelle
 function deleteWork() {
@@ -137,16 +140,15 @@ function deleteWork() {
   btnDeleteList.forEach(function(item) {
       item.addEventListener("click", function(event) {
         event.preventDefault();
-        
-          const projectId = this.innerText; // Récupérer l'ID du projet à partir du texte de l'élément clic
-          deleteProjets(projectId); // Appeler la fonction deleteProjets avec l'ID du projet
+
+          const projectId = this.innerText; 
+          deleteProjets(projectId); 
       });
   });
 }
 
 //suppression de projets
 async function deleteProjets(id) {
-  // Utiliser l'ID du projet dans l'URL de l'API pour supprimer le projet
   await fetch(`http://localhost:5678/api/works/${id}`, {
       method: "DELETE",
       headers: { 

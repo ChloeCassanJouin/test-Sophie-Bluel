@@ -29,7 +29,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-	background-color: #FFFFEE;
+	background-color: #fbfffe;
 }
 ol, ul {
 	list-style: none;
@@ -73,6 +73,7 @@ h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
+	padding-top: 5px;
 ;
 }
 
@@ -90,7 +91,7 @@ nav ul {
 
 }
 nav li {
-	padding: 0 10px;
+	padding: 0 20px;
 	font-size: 1.2em;
 }
 
@@ -126,7 +127,7 @@ li:hover {
 
 #introduction p {
 	margin-bottom: 0.5em;
-	padding-right: 11em;
+	padding-right: 9em;
 }
 
 .instagram {
@@ -137,6 +138,7 @@ li:hover {
 	display: flex;
 	justify-content: center;
 	text-align: center;
+	padding-top: 6em;
 }
 
 /* BUTTONS */
@@ -144,7 +146,7 @@ li:hover {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	margin: 4% 0% 4% 0%;
+	margin: 25px 0 40px 0;
 }
 
 .buttonsFilter {
@@ -169,13 +171,14 @@ button {
 }
 
 
-/* MAIN GALLERY*/
+/************************************************* MAIN GALLERY*/
 .mainGallery {
-	width: 100%;
+	width: 82%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	padding: 0 0 0 100px;
 }
 
 .mainGallery article {
@@ -193,7 +196,7 @@ flex-direction: column;
 }
 
 
-/* FORMULAIRE CONTACT */
+/***************************************** FORMULAIRE CONTACT */
 #contact {
 	width: 50%;
 margin: auto;
@@ -239,17 +242,22 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
+footer {
+	background-color: white;
+	}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em;
+	background-color: white;
+	padding: 1em;
 }
 
 
 
 
 
-/*partie page login.html*/
+/******************************************************login*/
 .loginSection h2{
  justify-content: center;
 } 
@@ -260,7 +268,7 @@ footer nav ul {
 }
 
 .loginSection {
-	margin: 50px 0 420px 0;
+	margin: 50px 0 280px 0;
 }
 
 #LoginPage > * {
@@ -295,114 +303,19 @@ footer nav ul {
 
 #LoginPage label {
 	margin: 2em 0 1em 0;
+	font-weight: bold;
 }
 
-
-
-/*modal*/
-
-#OpenModalBtn {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.ForgotPassword {
+	font-weight: bold;
+	text-decoration: underline;
 }
 
-#OpenModalBtn:hover {
-	cursor: pointer;
+#loginLink {
+	font-weight: bold;
 }
 
-.iconModal {
-	width: 50px;
-	height: 50px;
-}
-
-.fa-car {
-	color: black;
-	width: 50px;
-	height: 50px;
-}
-
-.titleModal {
-	display: flex;
-	justify-content: center;
-	font-family: 'Work Sans' ;
-	font-size: 16px;
-	margin-block-start: 0em;
-}
-
-.modal {
-	position: fixed; /*entiereté écran*/
-	align-items: center;
-	justify-content: center;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.4);
-}
-
-#closeModal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-
-.modalProjectsContainer {
-	overflow: auto;
-	width: 30%;
-	max-width: calc(100vw - 20px);
-	max-height: calc(100vh - 20px);
-	padding: 2em;
-	background-color: #FFF;
-}
-
-
-.modalGallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	grid-column-gap: 8px;
-	grid-row-gap: 20px;
-}
-
-.modalAdditionContainer {
-	background-color: white;
-}
-.modalProjectsContainer article {
-display: flex;
-flex-direction: column;
-}
-
-.modalProjectsContainer img {
-	width: 100%;
-
-}
-
-.mmodalProjectsContainer h3 {
-	padding-top: 3%;
-}
-
-.js-delete-work {
-	cursor: pointer;
-}
-.fa-trash-alt {
-    position: absolute;
-    font-size: 15px;
-    cursor: pointer;
-    color: #fff;
-	background-color: black; /* Couleur de l'icône de poubelle */
-	padding: 2px;
-}
-
-.test {
-	cursor: pointer;
-    color: #fff;
-	background-color: black; 
-}
-
+/*******************************************************popup login*/
 .popup {
 	position: fixed;
 	top: 50%;
@@ -423,4 +336,218 @@ flex-direction: column;
   .popup p {
 	margin: 0;
   }
+
+
+
+/*************************************************************modal*/
+#OpenModalBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-left: 30px;
+}
+
+#OpenModalBtn:hover {
+	cursor: pointer;
+}
+
+.iconModal {
+	width: 50px;
+	height: 50px;
+}
+
+.modal {
+	position: fixed; /*entiereté écran*/
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.4);
+
+}
+
+.fa-pen-to-square{
+	padding-right: 10px;
+}
+
+.btnOpeningModal{
+	font-weight: bold;
+}
+
+/*******************************************Modal 1*/
+.modalProjectsContainer {
+	overflow: auto;
+	width: 25%;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+	background-color: white;
+	padding: 30px 90px 30px 90px;
+	border-radius: 10px
+}
+
+#closeModal {
+	display: flex;
+	justify-content: right;
+    font-size: 20px;
+	font-weight: bold;
+    cursor: pointer;
+	position: relative;
+    bottom: 12px;
+    left: 60px;
+}
+
+.titleModal {
+	display: flex;
+	justify-content: center;
+	font-family: 'Work Sans' ;
+	font-size: 16px;
+	margin-block-start: 0em;
+}
+
+#formulaireAjoutProjet{
+	display: flex;
+	flex-direction: column;
+}
+
+.modalGallery {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 8px;
+	grid-row-gap: 20px;
+	border-bottom: grey;
+}
+
+.modalProjectsContainer article {
+	display: flex;
+	flex-direction: column;
+	}
+	
+.modalProjectsContainer img {
+	width: 100%;
+
+}
+
+.modalProjectsContainer h3 {
+	padding-top: 3%;
+}
+
+.greyline{
+	border-top: solid 1px #DCD7D0;
+	display: flex;
+	justify-content: center;
+}
+
+.addProjectsBtn {
+	background-color: #1D6154;
+	color: white;
+	cursor: pointer;
+	font-size: 10px;
+	padding: 7px 30px 7px 30px;
+	margin-top: 25px;
+	display: flex;
+	justify-content: center;
+}
+
+
+/*********************suppression projets*/
+.js-delete-work {
+	cursor: pointer;
+	color: white;
+}
+
+.fa-trash-alt {
+    cursor: pointer;
+    color: #fff;
+	background-color: black;
+	font-size: 15px;
+	padding: 5px 7px 5px 7px;
+	display: flex;
+	justify-content: center;
+	width: 5px;
+	position: relative;
+	bottom: 155px;
+    left: 75px;
+}
+
+
+/*******************************************Modal 2*/
+.fa-arrow-left{
+	position: relative;
+    bottom: 25px;
+    right: 70px;
+    font-size: 20px;
+	display: none;
+}
+
+.fa-mountain-sun{
+	display: flex;
+	justify-content: center;
+	border: solid 6px rgb(139, 139, 139);
+	border-radius: 10px;
+	color: rgb(139, 139, 139);
+	font-size: 50px;
+	margin: 0 160px;
+
+}
+
+#formulaireAjoutProjet{
+	display: none;
+}
+
+.greySquareModale2{
+	background-color: rgb(219, 219, 219);
+	display: flex;
+	flex-direction: column;
+	padding: 20px 30px 20px 30px;
+}
+
+.modalCategoryTitle {
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+.modalCategoryCategory {
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+.ModalAddProjectTitleCase, #modalAddImageCategory {
+	border: white;
+	box-shadow: 1px 1px 12px rgb(223, 222, 222);
+}
+
+#modalAddImageCategory{
+	margin-bottom: 20px;
+}
+
+.ImgUploadBtn {
+	background-color: rgb(175, 174, 174);
+	border: solid rgb(175, 174, 174);
+	color: rgb(69, 69, 156);
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.AddPicturePhrase{
+	cursor: pointer;
+	margin-top: 10px;
+
+}
+
+.imgFormatAlert{
+	display: flex;
+	justify-content: center;
+	font-size: 8px;
+	margin-top: 5px;
+}
+
+#imageUrl{
+	display: none;
+}
+
+
+
 

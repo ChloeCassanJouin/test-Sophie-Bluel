@@ -6,21 +6,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-	<meta name="description" content="">
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/8f1a74b784.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="./assets/CSS/style.css">
 	<script type="module" src="./scripts/index.js"></script>
 	<script type="module" src="./scripts/modale.js"></script>
 </head>
 <body>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+	<h1>Sophie Bluel <span>ARCHITECTE D'INTERIEUR</span></h1>
 	<nav>
 		<ul>
 			<li><a href ="#">projets</a></li>
 			<li><a href ="#">contact</a></li>
-			<li><a href ="#" id="logLink">Login</a></li> <!--faire affichage dyn-->
+			<li><a href ="#" id="logLink">login</a></li> <!--faire affichage dyn-->
 			<li><img src="../FrontEnd/assets/icons/instagram.png" alt="Instagram" class="instagram"><a href ="#"></a></li>
 		</ul>
 	</nav>
@@ -40,9 +39,10 @@
 
 	<section id="portfolio">
 		<div class="titleMyProjects" >
-			<h2>Mes Projets</h2>
-			<div id="OpenModalBtn"><i class="fa-solid fa-pen-nib"></i>
-				<p >modifier</p>
+			<h2>Mes projets</h2>
+			<div id="OpenModalBtn">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<p class="btnOpeningModal" >modifier</p>
 			</div>								
 		</div>
 		<div class="buttonAll">
@@ -53,20 +53,26 @@
 		<div class="mainGallery"></div>
 		
 		<dialog class="modal">
-			<span id="closeModal">x</span>
 			<div class="modalProjectsContainer">
+				<span id="closeModal">x</span>
+				<i class="fa-solid fa-arrow-left"></i>
 				<p class="titleModal">Galerie photo</p>
 				<div class="modalGallery"></div>
 				<form id="formulaireAjoutProjet">
-					<label for="photo">jpg, png : 4mo max</label>
-    				<input type="file" id="imageUrl" name="imageUrl" accept="image/*">
-					<label>Titre</label>
-					<input type="text" name="title">
-					<label for="categorySelect">Catégorie</label>
+					<div class="greySquareModale2">
+						<i class="fa-solid fa-mountain-sun fa-flip-horizontal"></i>
+						<label for="imageUrl" class="AddPicturePhrase ImgUploadBtn">+ Ajouter photo</label>
+						<input type="file" id="imageUrl" name="imageUrl" accept="image/*">
+						<label for="photo" class="imgFormatAlert">jpg, png : 4mo max</label>
+					</div>
+					<label class="modalCategoryTitle">Titre</label>
+					<input type="text" name="title" class="ModalAddProjectTitleCase">
+					<label for="categorySelect" class="modalCategoryCategory">Catégorie</label>
 					<select name="category.name" id="modalAddImageCategory"></select>
 					<button id="boutonValidation">Valider</button>
 				</form>
-				<button class="addProjects">Ajouter une photo</button>
+				<div class="greyline"></div>
+				<button class="addProjectsBtn">Ajouter une photo</button>
 			</div>
 		</dialog>
 		<div class="popup"></div>
@@ -78,7 +84,7 @@
 		<form action="#" method="post">
 			<label for="name">Nom</label>
 			<input type="text" name="name" id="name">
-			<label for="email">Email</label>
+			<label for="email">E-mail</label>
 			<input type="email" name="email" id="email">
 			<label for="message">Message</label>
 			<textarea name="message" id="message" cols="30" rows="10"></textarea>
