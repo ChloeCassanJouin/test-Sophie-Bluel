@@ -7,20 +7,6 @@ const loginEmailError = document.querySelector(".loginEmailError");
 const loginPasswordError = document.querySelector(".loginPasswordError")
 const popup = document.querySelector(".popup");
 
-/*PSEUDO-CODE DU LOGIN
--cette page affiche les identifiants de l'utilisateur pour se logger à l'API
--définir les zones email / mdp / bouton submit
--définir écoute évènement sur le bouton submit avec récupération des valeurs email et password.
--ensuite vérifier la syntaxe de l'email + si mot de passe 
--la fonction VerifID vérifie la syntaxe de l'email selon critères et si un pwd a bien été entré.
-  Si pas correct, dans la div loginEmailError et la div loginPasswordError situées en dessous des cases et faire apparaitre une balise <p> avec message d'alerte + 
-  une class .empty rajouté à cases Email&pwd avec bordures rouges.
--la fonction clearAlerts remove les alertes <p> et la class ".empty" à chaque clic submit
--la fonction login permet ensuite de se connecter à l'API et vérifier si les identifiants correspondent aux accès API-login-Post. Si 
--la fonction showPopupAlert 
--la fonction updateLoginButton
-*/
-
 localStorage.removeItem("token");
 
 submit.addEventListener("click", function (event) {

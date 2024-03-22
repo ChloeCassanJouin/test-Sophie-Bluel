@@ -384,7 +384,7 @@ footer nav ul {
 	max-height: calc(100vh - 20px);
 	background-color: white;
 	padding: 30px 90px 30px 90px;
-	border-radius: 10px
+	border-radius: 10px;
 }
 
 #closeModal {
@@ -402,10 +402,13 @@ footer nav ul {
 	display: flex;
 	justify-content: center;
 	font-family: 'Work Sans' ;
-	font-size: 16px;
+	font-size: 20px;
 	margin-block-start: 0em;
 }
 
+Modal1SuppressProject {
+	display: flex;
+}
 #formulaireAjoutProjet{
 	display: flex;
 	flex-direction: column;
@@ -418,6 +421,7 @@ footer nav ul {
 	grid-column-gap: 8px;
 	grid-row-gap: 20px;
 	border-bottom: grey;
+	margin-bottom: 60px;
 }
 
 .modalProjectsContainer article {
@@ -435,11 +439,15 @@ footer nav ul {
 }
 
 .greyline{
-	border-top: solid 1px #DCD7D0;
+	border-top: solid 2px #DCD7D0;
 	display: flex;
 	justify-content: center;
 }
 
+.AddProjectsContainer{
+	display: flex;
+	justify-content: center;
+}
 .addProjectsBtn {
 	background-color: #1D6154;
 	color: white;
@@ -456,40 +464,48 @@ footer nav ul {
 .js-delete-work {
 	cursor: pointer;
 	color: white;
+	position: relative;
 }
 
 .fa-trash-alt {
     cursor: pointer;
     color: #fff;
 	background-color: black;
-	font-size: 15px;
-	padding: 5px 7px 5px 7px;
+	font-size: 8px;
+	padding: 2px 4px 2px 4px;
 	display: flex;
 	justify-content: center;
 	width: 5px;
-	position: relative;
-	bottom: 155px;
-    left: 75px;
+	position: absolute;
+	left: 50px;
+	top: 20px;
 }
 
-
 /*******************************************Modal 2*/
-.fa-arrow-left{
+.arrowBackToModale1{
 	position: relative;
     bottom: 25px;
     right: 70px;
     font-size: 20px;
 	display: none;
+	cursor: pointer;
+}
+
+.mountainIconContainer{
+	display: flex;
+	justify-content: center;
 }
 
 .fa-mountain-sun{
 	display: flex;
 	justify-content: center;
-	border: solid 6px rgb(139, 139, 139);
-	border-radius: 10px;
-	color: rgb(139, 139, 139);
+	color: rgb(183 180 180);
 	font-size: 50px;
 	margin: 0 160px;
+	max-width: 100%;
+	border: solid 5px rgb(183 180 180);
+    padding: 10px 3px 0px 3px;
+    border-radius: 10px;
 
 }
 
@@ -498,18 +514,14 @@ footer nav ul {
 }
 
 .greySquareModale2{
-	background-color: rgb(219, 219, 219);
+	background-color: rgb(235 235 235);
 	display: flex;
 	flex-direction: column;
-	padding: 20px 30px 20px 30px;
+	padding: 20px 0px 20px 0px;
+	width: 100%;
 }
 
-.modalCategoryTitle {
-	margin-top: 20px;
-	margin-bottom: 5px;
-}
-
-.modalCategoryCategory {
+.modalCategoryTitle, .modalCategoryCategory {
 	margin-top: 20px;
 	margin-bottom: 5px;
 }
@@ -517,37 +529,47 @@ footer nav ul {
 .ModalAddProjectTitleCase, #modalAddImageCategory {
 	border: white;
 	box-shadow: 1px 1px 12px rgb(223, 222, 222);
+	height: 30px;
 }
 
 #modalAddImageCategory{
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 }
 
 .ImgUploadBtn {
-	background-color: rgb(175, 174, 174);
-	border: solid rgb(175, 174, 174);
-	color: rgb(69, 69, 156);
+	background-color: rgb(183 180 180);
+	border: solid rgb(183 180 180);
+	color: rgb(99, 99, 179);
 	font-size: 12px;
 	cursor: pointer;
 }
 
 .AddPicturePhrase{
 	cursor: pointer;
-	margin-top: 10px;
-
+	margin: 2% 30%;
+	padding: 7px 0 7px 0;
+	border-radius: 30px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
 }
 
 .imgFormatAlert{
 	display: flex;
 	justify-content: center;
 	font-size: 8px;
-	margin-top: 5px;
 }
 
 #imageUrl{
 	display: none;
 }
 
+#boutonValidation{
+	margin-top: 25px;
+	color: white;
+	background-color: grey;
+	border: grey;
+}
 
 
 

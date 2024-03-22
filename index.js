@@ -40,6 +40,7 @@ function logLinkRoad() {
 }
 logLinkRoad()
 
+
 //affichage boutons filtre catégories
 function genereCategories(architectButtons) {
     const projectsByCategory = {};
@@ -86,19 +87,3 @@ function genereProjets(projects) {
 }
 genereProjets(architectProjects);
 genereCategories(architectButtons);
-
-
-//affichage rajout projet
-/*const reponse = await fetch('http://localhost:5678/api/works');
-const projetAjouté = await reponse.json();
-ajoutListenerAjoutProjet()*/
-
-/* 
-1-récupération du token
-2-déclarer token true
-3-si true = modif page 
-4-sinon false
-1-verif token
-2-si token true - sinon false
-3- affichage en consequence (affichage conditionnel)
-*/

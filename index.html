@@ -55,12 +55,16 @@
 		<dialog class="modal">
 			<div class="modalProjectsContainer">
 				<span id="closeModal">x</span>
-				<i class="fa-solid fa-arrow-left"></i>
-				<p class="titleModal">Galerie photo</p>
-				<div class="modalGallery"></div>
+				<i class="fa-solid fa-arrow-left arrowBackToModale1"></i>
+					<p class="titleModal">Galerie photo</p>
+				<div class="Modal1SuppressProject">
+					<div class="modalGallery"></div>
+					<div class="greyline"></div>
+					<div class="AddProjectsContainer"><button class="addProjectsBtn">Ajouter une photo</button></div>
+				</div>
 				<form id="formulaireAjoutProjet">
 					<div class="greySquareModale2">
-						<i class="fa-solid fa-mountain-sun fa-flip-horizontal"></i>
+						<div class="mountainIconContainer"><i class="fa-solid fa-mountain-sun fa-flip-horizontal"></i></div>
 						<label for="imageUrl" class="AddPicturePhrase ImgUploadBtn">+ Ajouter photo</label>
 						<input type="file" id="imageUrl" name="imageUrl" accept="image/*">
 						<label for="photo" class="imgFormatAlert">jpg, png : 4mo max</label>
@@ -69,10 +73,10 @@
 					<input type="text" name="title" class="ModalAddProjectTitleCase">
 					<label for="categorySelect" class="modalCategoryCategory">Catégorie</label>
 					<select name="category.name" id="modalAddImageCategory"></select>
+					<div class="greyline"></div>
 					<button id="boutonValidation">Valider</button>
 				</form>
-				<div class="greyline"></div>
-				<button class="addProjectsBtn">Ajouter une photo</button>
+				<div class="popup"></div>
 			</div>
 		</dialog>
 		<div class="popup"></div>
