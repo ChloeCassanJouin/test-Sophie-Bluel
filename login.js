@@ -1,5 +1,3 @@
-// la modification de login  en logout doit-il passer par un export de la fonction dans works.js?
-
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const submit = document.getElementById("submit");
@@ -7,19 +5,23 @@ const loginEmailError = document.querySelector(".loginEmailError");
 const loginPasswordError = document.querySelector(".loginPasswordError")
 const popup = document.querySelector(".popup");
 
-localStorage.removeItem("token");
 
+localStorage.removeItem("token"); // suppression token
+
+
+//récupération des valeurs email et password
 submit.addEventListener("click", function (event) {
-  event.preventDefault(); // blocage comportement par défaut
+  event.preventDefault();
   clearAlerts();
   const user = {
     email: emailInput.value,
-    password: passwordInput.value
+    password: passwordInput.value,
   };
   login(user);
 });
 
-
+////////////////////////////////////////////////////////////////////////////////////// gestion syntaxe identifiants//
+//verifier la syntaxe de l'email et présence d'un password
 function VerifID(user) {
   let result = true
   if (!user.email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/g)) {
@@ -28,14 +30,12 @@ function VerifID(user) {
     loginEmailError.appendChild(p);
     emailInput.classList.add("empty");
     result = false
-    //return;
   } if (!user.password) {
     const p = document.createElement("p");
     p.innerHTML = "Veuillez entrer un mot de passe";
     loginPasswordError.appendChild(p);
     passwordInput.classList.add("empty");
     result = false
-    //return;
   }
   return result;
 }
@@ -52,14 +52,12 @@ function clearAlerts() {
 }
 
 
+////////////////////////////////////////////////////////////////////////////////////// envoi des identifiants à l'API//
 //CONNECTION API
 async function login(user) {
   try {
     const recuperationValeurID = VerifID(user)
     if  (!recuperationValeurID) return;
-    
-
-    //La sauvegarde de nouvelles données dans l’API HTTP nécessite de renseigner trois nouvelles informations en plus du chemin de la ressource : le verbe HTTP, la charge utile et les en-têtes.
     const response = await fetch("http://localhost:5678/api/users/login", { 
       method: "POST",
       headers: {
@@ -67,7 +65,6 @@ async function login(user) {
       },
       body: JSON.stringify(user),
     });
-    console.log(user)
 
     if (response.status === 401 || response.status === 404) {
       showPopupAlert("Vos identifiants ne sont pas valides.");
@@ -75,20 +72,20 @@ async function login(user) {
     }
 
     const result = await response.json();
+    
     if (result.token) {
       localStorage.setItem("token", result.token);
       window.location.href = "../../index.html";
       console.log(result)
       const token = result.token
       console.log(token)
-      //updateLoginButton(); 
     }
   } catch (error) {
     console.error("Error:", error);
   }
 }
 
-//popup
+//popup "identifiants non valides"
 function showPopupAlert(message) {
   const popupContent = document.createElement("div");
   popupContent.classList.add("popup-content");
@@ -107,12 +104,6 @@ function closePopup(event) {
     document.removeEventListener("click", closePopup);
   }
 }
-}
-
-//login - logout - !ne fonctionne pas encore!
-function updateLoginButton() {
-  const loginButton = document.getElementById("loginLink");
-  loginButton.textContent = "Logout";
 }
 
 //email: sophie.bluel@test.tld

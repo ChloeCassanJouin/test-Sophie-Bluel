@@ -1,4 +1,3 @@
-//déclaration variables
 const openModalBtn = document.getElementById('OpenModalBtn');
 const modal = document.querySelector('.modal');
 const modalGallery = document.querySelector(".modalGallery");
@@ -8,10 +7,14 @@ const titleModal = document.querySelector('.titleModal');
 const Modal1SuppressProject = document.querySelector('.Modal1SuppressProject')
 const BtnAddProject = document.querySelector('.addProjectsBtn');
 const arrowBackToModale1 = document.querySelector('.arrowBackToModale1')
-const formulaireAjoutProjetModal2 = document.getElementById("formulaireAjoutProjet");
-const formulaireBtn = document.getElementById("boutonValidation");//bouton validation formulaire ajout
+const greySquareModale2 = document.querySelector("greySquareModale2");
+const imageUrlupload = document.getElementById("imageUrl");
+const mountainIconContainer = document.querySelector("mountainIconContainer");
+const addPicturePhrase = document.querySelector('imgFormatAlert');
+const inputFieldsForm = document.querySelectorAll(".formField");
+const formBtn = document.getElementById("boutonValidation");//bouton validation formulaire ajout
 const popup = document.querySelector(".popup");
-let projetElement; // utiliser dans fonction fetch, donc inutilisable sinon
+let projectElement; // utiliser dans fonction fetch
 
 ////////////////////////////////////////////////////////////////////////////////      TOKEN///////////////
 const token = localStorage.getItem("token");
@@ -44,7 +47,7 @@ fetch('http://localhost:5678/api/works')
   .then(data => {
     modalGallery.innerHTML = "";
     data.forEach(project => {
-      projetElement = document.createElement("article");
+      projectElement = document.createElement("article");
 
       const imageElement = document.createElement("img");
       imageElement.src = project.imageUrl;
@@ -59,9 +62,9 @@ fetch('http://localhost:5678/api/works')
 
       idProjet.appendChild(trashIcon);
 
-      projetElement.appendChild(idProjet);
-      projetElement.appendChild(imageElement);
-      modalGallery.appendChild(projetElement);
+      projectElement.appendChild(idProjet);
+      projectElement.appendChild(imageElement);
+      modalGallery.appendChild(projectElement);
     });
     deleteWork(); // Appeler la fonction deleteWork après avoir généré tous les éléments
   });
@@ -105,7 +108,7 @@ function verifyFormAddProjectModal2() {
 }
 
 
-///////////////////////////////////////////////////////////////////////////////      AJOUT PROJET/
+///////////////////////////////////////////////////////////////////////////////    STRUCTURE FORMULAIRE AJOUT PROJET/
 //récupération des catégories dans formulaire
 function fetchAndDisplayCategories() {
   fetch('http://localhost:5678/api/categories')
@@ -113,6 +116,12 @@ function fetchAndDisplayCategories() {
       .then(data => {
           const selectElement = document.getElementById('modalAddImageCategory');
           selectElement.innerHTML = ''; // Effacer les options existantes
+
+          const blankOption = document.createElement('option');
+            blankOption.value = ''; // La valeur vide
+            blankOption.textContent = ''; // Texte affiché
+            selectElement.appendChild(blankOption);
+
           data.forEach(category => {
               const optionElement = document.createElement('option');
               optionElement.value = category.id;
@@ -127,40 +136,33 @@ function fetchAndDisplayCategories() {
 fetchAndDisplayCategories();
 
 
-// Ajouter un projet - validation formulaire
-async function ajoutListenerAjoutProjet() {
-  formulaireBtn.addEventListener("click", async function(event) {
-      event.preventDefault();
 
-      const token = localStorage.getItem("token");
-      const photo = document.getElementById("imageUrl").files[0];
-      const title = document.querySelector("input[name='title']").value;
-      const category = document.querySelector("select[name='category.name']").value;
-      console.log(token, photo, title, category)
-      try {
-          const formData = new FormData();
-          formData.append('image', photo);
-          formData.append('title', title);
-          formData.append('category', category);
 
-          const response = await fetch("http://localhost:5678/api/works", {
-              method: "POST",
-              headers: {
-                  Authorization: `Bearer ${token}`,
-              },
-              body: formData,
-          });
-      
-        if (response.status === 400 || response.status === 500) {
-          showPopupAlertAddProject("Veuillez remplir tous les champs du formulaire.");
-          return;
-        }
-      } catch (error) {
-          console.log("Erreur :", error);
-      }
-  });
+// Afficher la miniature de l'image dans la deuxième modale
+/*function previewFile() {
+  imageUrlupload.addEventListener('change', previewFile);
+  if (this.files.length === 0) { 
+    return;
+  }
+  console.log(this.files[0].name);
+  /*const file = this.files[0];
+  const file_reader = new FileReader();
+
+  file_reader.readAsDataURL(file);
+
+  file_reader.addEventListener('load', (event) => displayImage(event, file));
+//previewFile();
+
+
+function displayImage(event, file) {
+  greySquareModale2.remove();
+  const figure_element = document.createElement('figure');
+  figure_element.id = "image_selected";
+  const image_element = document.createElement('img');
+  image_element.src = event.target.result;
 }
-ajoutListenerAjoutProjet();
+*/
+
 
 //popup
 function showPopupAlertAddProject(message) {
@@ -184,28 +186,63 @@ function closePopup(event) {
 }
 
 //changement couleur bouton VALIDER formulaire ajout projet
-function verifierFormulaire() {
-  const imageField = document.getElementById('imageUrl').value;
-  const titleField = document.querySelector('ModalAddProjectTitleCase').value;
-  const categoryField = document.getElementById('modalAddImageCategory').value;
-  console.log(imageField)
+inputFieldsForm.forEach(field => {
+  field.addEventListener('input', () => {
+    const isFormValid = Array.from(inputFieldsForm).every(field => field.value.trim() !== ''); 
 
-  if (!imageField === '' || !titleField === '' || !categoryField === '') {
-      alert('Veuillez remplir tous les champs du formulaire.');
-      console.log("c'est tout bon")
+    if (isFormValid) {
+      formBtn.classList.add('active');
+  } else {
+    formBtn.classList.remove('active');
   }
-  return
-}
 
-///////////////////////////////////////////////////////////////////////////////      SUPRESSION PROJET/
+  });
+});
+
+///////////////////////////////////////////////////////////////////////////////    AJOUT PROJET - ENVOI API/
+// Ajouter un projet - formulaire bien rempli
+async function ajoutListenerAjoutProjet() {
+  formBtn.addEventListener("click", async function(event) {
+      event.preventDefault();
+
+      const token = localStorage.getItem("token");
+      const photo = document.getElementById("imageUrl").files[0];
+      const title = document.querySelector("input[name='title']").value;
+      const category = document.querySelector("select[name='category.name']").value;
+      console.log(token, photo, title, category)
+      try {
+          const formData = new FormData();
+          formData.append('image', photo);
+          formData.append('title', title);
+          formData.append('category', category);
+
+          const response = await fetch("http://localhost:5678/api/works", {
+              method: "POST",
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+          });
+
+          if (response.status === 400 || response.status === 500) {
+              showPopupAlertAddProject("Veuillez remplir tous les champs du formulaire.");
+              return;
+          }
+      } catch (error) {
+          console.log(error);
+      }
+  });
+}
+ajoutListenerAjoutProjet()
+
+////////////////////////////////////////////////////////////////////////////////////      SUPRESSION PROJET/
 // click poubelle
 function deleteWork() {
   let btnDeleteList = document.querySelectorAll(".js-delete-work");
   console.log(btnDeleteList)
   btnDeleteList.forEach(function(item) {
       item.addEventListener("click", function(event) {
-        event.preventDefault();
-
+          event.preventDefault(); 
           const projectId = this.innerText; 
           deleteProjets(projectId); 
       });
@@ -223,3 +260,4 @@ async function deleteProjets(id) {
       console.log(error);
   });
 }
+

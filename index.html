@@ -66,13 +66,13 @@
 					<div class="greySquareModale2">
 						<div class="mountainIconContainer"><i class="fa-solid fa-mountain-sun fa-flip-horizontal"></i></div>
 						<label for="imageUrl" class="AddPicturePhrase ImgUploadBtn">+ Ajouter photo</label>
-						<input type="file" id="imageUrl" name="imageUrl" accept="image/*">
-						<label for="photo" class="imgFormatAlert">jpg, png : 4mo max</label>
+						<input type="file" id="imageUrl" name="imageUrl" accept="image/jpeg, image/png" class="formField">
+						<label for="imageUrl" class="imgFormatAlert">jpg, png : 4mo max</label>
 					</div>
 					<label class="modalCategoryTitle">Titre</label>
-					<input type="text" name="title" class="ModalAddProjectTitleCase">
+					<input type="text" name="title" class="ModalAddProjectTitleCase formField">
 					<label for="categorySelect" class="modalCategoryCategory">Catégorie</label>
-					<select name="category.name" id="modalAddImageCategory"></select>
+					<select name="category.name" id="modalAddImageCategory" class="formField"></select>
 					<div class="greyline"></div>
 					<button id="boutonValidation">Valider</button>
 				</form>

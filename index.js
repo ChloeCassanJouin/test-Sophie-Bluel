@@ -11,29 +11,26 @@ const logLink = document.getElementById("logLink");
 
 // Récupérer le token depuis le stockage local
 const token = localStorage.getItem("token");
-const isLogged = token ? true : false;// Vérifier si le token existe
-console.log(isLogged); // Affiche true si un token existe, sinon false
+const isLogged = token ? true : false;
 
 
-
-//affichage login ou logout
+//affichage mot login ou logout
 function loggedState() {
-    if(isLogged) { // affichage conditionnel / token
+    if(isLogged) { 
     logLink.textContent = "logout";
     }
     return
 }
 loggedState()
 
+
+//suppression du token dans le localStorage selon login ou logout
 function logLinkRoad() {
     logLink.addEventListener('click', function () {
         if (isLogged) {
-            console.log("je suis là") 
-            localStorage.removeItem("token"); // Supprimer le token du localStorage
-            // Rediriger vers la page d'accueil par exemple
+            localStorage.removeItem("token");
             window.location.href = "../../FrontEnd/index.html";
         } else { 
-            // Rediriger vers la page de connexion
             window.location.href = "../../FrontEnd/assets/HTML/login.html";
         }
     });
@@ -42,48 +39,46 @@ logLinkRoad()
 
 
 //affichage boutons filtre catégories
-function genereCategories(architectButtons) {
+function generateCategories(architectButtons) {
     const projectsByCategory = {};
     architectButtons.forEach(category => {
     projectsByCategory[category.name] = architectProjects.filter(project => project.category.name === category.name);
     });
     if(isLogged === true) {
         buttonAll.remove();
-        
-         // affichage conditionnel / token
     }
     if(isLogged === false) {
         ModalBtn.remove();
         sectionButtons.innerHTML = '';
-    architectButtons.forEach(category => {
-        const projectCategoriesElement = document.createElement("button");
-        projectCategoriesElement.classList.add("buttonHighlight");
-        projectCategoriesElement.textContent = category.name;
-        projectCategoriesElement.addEventListener('click', function () {
-            genereProjets(projectsByCategory[category.name]);
+
+        architectButtons.forEach(category => {
+            const projectCategoriesElement = document.createElement("button");
+            projectCategoriesElement.classList.add("buttonHighlight");
+            projectCategoriesElement.textContent = category.name;
+            projectCategoriesElement.addEventListener('click', function () {
+                genereProjets(projectsByCategory[category.name]);
+             });
+            sectionButtons.appendChild(projectCategoriesElement); 
         });
-        sectionButtons.appendChild(projectCategoriesElement); 
-    });
     }
-buttonAll.addEventListener('click', function() {
-genereProjets(architectProjects);
-});
+    buttonAll.addEventListener('click', function() { // bouton tous
+    });
 }
 
 
-//affichage projets
-function genereProjets(projects) {
+//affichage gallerie
+function generateProjets(projects) {
     projects.forEach(project => {
-        const projetElement = document.createElement("article");
+        const projectElement = document.createElement("article");
         const imageElement = document.createElement("img");
         imageElement.src = project.imageUrl;
         const titleElement = document.createElement("h3");
         titleElement.innerText = project.title;
 
-        projetElement.appendChild(imageElement);
-        projetElement.appendChild(titleElement);
-        mainGallery.appendChild(projetElement);
+        projectElement.appendChild(imageElement);
+        projectElement.appendChild(titleElement);
+        mainGallery.appendChild(projectElement);
     }); 
 }
-genereProjets(architectProjects);
-genereCategories(architectButtons);
+generateProjets(architectProjects);
+generateCategories(architectButtons);

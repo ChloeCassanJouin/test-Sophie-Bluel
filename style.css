@@ -409,6 +409,11 @@ footer nav ul {
 Modal1SuppressProject {
 	display: flex;
 }
+
+#selectedImage{
+	display: none;
+}
+
 #formulaireAjoutProjet{
 	display: flex;
 	flex-direction: column;
@@ -570,6 +575,11 @@ Modal1SuppressProject {
 	background-color: grey;
 	border: grey;
 }
+
+#boutonValidation.active{
+	background-color: #1D6154;;
+}
+
 
 
 
