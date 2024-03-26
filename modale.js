@@ -8,9 +8,9 @@ const Modal1SuppressProject = document.querySelector('.Modal1SuppressProject')
 const BtnAddProject = document.querySelector('.addProjectsBtn');
 const arrowBackToModale1 = document.querySelector('.arrowBackToModale1')
 const greySquareModale2 = document.querySelector("greySquareModale2");
+const formAddProject = document.getElementById("formAddProject");
 const imageUrlupload = document.getElementById("imageUrl");
 const mountainIconContainer = document.querySelector("mountainIconContainer");
-const addPicturePhrase = document.querySelector('imgFormatAlert');
 const inputFieldsForm = document.querySelectorAll(".formField");
 const formBtn = document.getElementById("boutonValidation");//bouton validation formulaire ajout
 const popup = document.querySelector(".popup");
@@ -46,6 +46,7 @@ fetch('http://localhost:5678/api/works')
   .then(response => response.json())
   .then(data => {
     modalGallery.innerHTML = "";
+    formAddProject.style.display = "none";
     data.forEach(project => {
       projectElement = document.createElement("article");
 
@@ -77,7 +78,7 @@ function Make2ndModalAppear() {
   BtnAddProject.addEventListener("click", function() {
     titleModal.textContent = "Ajout photo";
     Modal1SuppressProject.style.display = "none";
-    formulaireAjoutProjet.style.display= "flex";
+    formAddProject.style.display= "flex";
     arrowModal.style.display= "flex";
 
   });
@@ -88,7 +89,7 @@ Make2ndModalAppear();
 function ArrowBackToModale1() {
   arrowBackToModale1.addEventListener("click", function() {
         titleModal.textContent = "Galerie photo";
-        formulaireAjoutProjet.style.display = "none";
+        formAddProject.style.display = "none";
         Modal1SuppressProject.style.display = "block";
     });
 }
@@ -138,7 +139,30 @@ fetchAndDisplayCategories();
 
 
 
-// Afficher la miniature de l'image dans la deuxième modale
+//********************************************************** */ Afficher la miniature de l'image dans la deuxième modale
+function previewFile() {
+  imageUrlupload.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const file_reader = new FileReader();
+      console.log(file, file_reader)
+
+      file_reader.readAsDataURL(file);
+
+      file_reader.onload = function() {
+          /*const existingImage = document.getElementById('image_selected');
+          if (existingImage) {
+              existingImage.remove();
+          }*/
+          const image_element = document.createElement('img');
+          image_element.id = "image_selected";
+          image_element.src = file_reader.result;
+
+          greySquareModale2.appendChild(image_element);
+      };
+  });
+}
+previewFile()
+
 /*function previewFile() {
   imageUrlupload.addEventListener('change', previewFile);
   if (this.files.length === 0) { 

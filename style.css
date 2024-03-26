@@ -414,7 +414,7 @@ Modal1SuppressProject {
 	display: none;
 }
 
-#formulaireAjoutProjet{
+#formAddProject{
 	display: flex;
 	flex-direction: column;
 }
